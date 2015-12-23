@@ -58,6 +58,7 @@ module Selenium
           raise ArgumentError, "cannot find element by #{how.inspect}"
         end
 
+        bridge.switchToActiveElement rescue nil # workaround for the 'Permission denied to access property "handleEvent"' bug
         bridge.find_element_by by, what.to_s, ref
       rescue Selenium::WebDriver::Error::TimeOutError
         # Implicit Wait times out in Edge
@@ -81,6 +82,8 @@ module Selenium
           raise ArgumentError, "cannot find elements by #{how.inspect}"
         end
 
+
+        bridge.switchToActiveElement rescue nil # workaround for the 'Permission denied to access property "handleEvent"' bug
         bridge.find_elements_by by, what.to_s, ref
       rescue Selenium::WebDriver::Error::TimeOutError
         # Implicit Wait times out in Edge
